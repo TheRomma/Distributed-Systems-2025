@@ -1,5 +1,5 @@
 from confluent_kafka import Consumer, KafkaError
-from app.database import add_entry, remove_entry
+from database import add_entry, remove_entry
 
 conf = {
     'bootstrap.servers': "localhost:9092",

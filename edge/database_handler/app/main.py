@@ -1,4 +1,4 @@
-from app.consumer import consume_messages
+from consumer import consume_messages
 
 if __name__ == "__main__":
     consume_messages()
