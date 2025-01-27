@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import os
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://192.168.1.101:27017/')
 db = client['metadata']
 collection = db['videos']
 

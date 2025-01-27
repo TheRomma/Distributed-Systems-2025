@@ -1,0 +1,46 @@
+version: '3.8'
+
+networks:
+  mongo-cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
+services:
+  origin-db-handler:
+    image: origin-db-handler
+    build: ./origin/origin_database_handler
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    networks:
+      mongo-cluster:
+        ipv4_address: 192.168.1.100
+
+  mongo-origin:
+    image: mongo:latest
+    container_name: mongo-origin
+    restart: always
+    networks:
+      mongo-cluster:
+        ipv4_address: 192.168.1.101
+    command: [ "mongod", "--replSet", "myReplicaSet" ]
+
+  mongo2:
+    image: mongo:latest
+    container_name: mongo2
+    restart: always
+    networks:
+      mongo-cluster:
+        ipv4_address: 192.168.1.102
+    command: [ "mongod", "--replSet", "myReplicaSet" ]
+
+  mongo3:
+    image: mongo:latest
+    container_name: mongo3
+    restart: always
+    networks:
+      mongo-cluster:
+        ipv4_address: 192.168.1.103
+    command: [ "mongod", "--replSet", "myReplicaSet" ]
