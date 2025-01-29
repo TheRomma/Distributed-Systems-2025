@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-distribution-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: content-distribution-service
+  template:
+    metadata:
+      labels:
+        app: content-distribution-service
+    spec:
+      containers:
+      - name: content-distribution-service
+        image: jkoivist20/content_distribution_service:latest
+        env:
+        - name: KAFKA_BROKER
+          value: "my-cluster-kafka-bootstrap.kafka.svc:9092"

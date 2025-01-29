@@ -1,10 +1,11 @@
 from confluent_kafka import Consumer, KafkaError
 from file_manager import handle_add_message, handle_remove_message
+import os
 
 conf = {
-    'bootstrap.servers': "localhost:9092",
-    'group.id': "file-manager-group",
-    'auto.offset.reset': 'earliest'
+    'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092"),
+    'group.id': os.getenv("HOSTNAME", "file-manager-group")+"_content_handler",
+    'auto.offset.reset': 'latest'
 }
 
 consumer = Consumer(conf)

@@ -1,6 +1,7 @@
 from confluent_kafka import Producer
+import os
 
-conf = {'bootstrap.servers': "localhost:9092"}
+conf = {'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092")}
 producer = Producer(conf)
 
 def produce_add_message(link: str, title: str):
