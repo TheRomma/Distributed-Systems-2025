@@ -11,6 +11,10 @@ spec:
     metadata:
       labels:
         app: edge-server
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       
@@ -24,6 +28,8 @@ spec:
           
       - name: content-handler
         image: jkoivist20/edge-content-handler:latest
+        ports:
+        - containerPort: 8000  # metrics
         env:
         - name: KAFKA_BROKER
           value: "my-cluster-kafka-bootstrap.kafka.svc:9092"
@@ -35,7 +41,6 @@ spec:
       - name: shared-storage
         emptyDir: {}
 
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -47,4 +52,9 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+    name: http
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    name: metrics
   type: LoadBalancer

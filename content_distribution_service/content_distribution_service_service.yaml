@@ -9,4 +9,9 @@ spec:
     - protocol: TCP
       port: 8123
       targetPort: 80
+      name: http
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: metrics
   type: LoadBalancer

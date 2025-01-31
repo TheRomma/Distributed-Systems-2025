@@ -1,0 +1,43 @@
+{
+    "dashboard": {
+      "title": "Video Distribution System Metrics",
+      "panels": [
+        {
+          "title": "Video Request Rate",
+          "type": "graph",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+          "targets": [{
+            "expr": "rate(http_requests_total{endpoint=~\"/videos/.*\"}[5m])",
+            "legendFormat": "{{instance}}"
+          }]
+        },
+        {
+          "title": "Video Serving Latency",
+          "type": "graph",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+          "targets": [{
+            "expr": "rate(http_request_duration_seconds_sum{endpoint=~\"/videos/.*\"}[5m]) / rate(http_request_duration_seconds_count{endpoint=~\"/videos/.*\"}[5m])",
+            "legendFormat": "{{instance}}"
+          }]
+        },
+        {
+          "title": "Kafka Message Rate",
+          "type": "graph",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+          "targets": [{
+            "expr": "rate(kafka_messages_total[5m])",
+            "legendFormat": "{{topic}}"
+          }]
+        },
+        {
+          "title": "Error Rate",
+          "type": "graph",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+          "targets": [{
+            "expr": "rate(http_requests_total{status_code=~\"5.*\"}[5m])",
+            "legendFormat": "{{instance}}"
+          }]
+        }
+      ]
+    }
+  }

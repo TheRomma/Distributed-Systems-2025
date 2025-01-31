@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'content-distribution-service'
+    static_configs:
+      - targets: ['content-distribution-service:8000']
+    metrics_path: /metrics
+
+  - job_name: 'edge-video-server'
+    static_configs:
+      - targets: ['edge-server-service:80']
+    metrics_path: /metrics
+
+  - job_name: 'origin-video-server'
+    static_configs:
+      - targets: ['origin-video-server:8000']
+    metrics_path: /metrics
+
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['kafka:9092']

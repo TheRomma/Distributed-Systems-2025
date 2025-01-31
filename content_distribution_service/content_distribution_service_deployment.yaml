@@ -11,10 +11,17 @@ spec:
     metadata:
       labels:
         app: content-distribution-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: content-distribution-service
         image: jkoivist20/content_distribution_service:latest
+        ports:
+        - containerPort: 80
+        - containerPort: 8000  # metrics port
         env:
         - name: KAFKA_BROKER
           value: "my-cluster-kafka-bootstrap.kafka.svc:9092"
