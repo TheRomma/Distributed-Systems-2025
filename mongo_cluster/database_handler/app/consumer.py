@@ -1,10 +1,11 @@
 from confluent_kafka import Consumer, KafkaError
 from database import add_entry, remove_entry
+import os
 
 conf = {
-    'bootstrap.servers': "localhost:9092",
+    'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092"),
     'group.id': "database-service-group",
-    'auto.offset.reset': 'earliest'
+    'auto.offset.reset': 'latest'
 }
 
 consumer = Consumer(conf)

@@ -4,8 +4,7 @@ import os
 
 app = FastAPI()
 
-# Get the folder where video files are stored from an environment variable
-VIDEO_FOLDER = os.getenv("VIDEO_FOLDER", "videos")
+VIDEO_FOLDER = "/app/videos"
 
 @app.get("/videos/{filename}")
 async def get_video(filename: str):
@@ -14,7 +13,7 @@ async def get_video(filename: str):
         return FileResponse(file_path)
     else:
         raise HTTPException(status_code=404, detail="File not found")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+#
+#if __name__ == "__main__":
+#    import uvicorn
+#    uvicorn.run(app, host="0.0.0.0", port=80)

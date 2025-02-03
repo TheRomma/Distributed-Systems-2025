@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-handler-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-handler-service
+  template:
+    metadata:
+      labels:
+        app: db-handler-service
+    spec:
+      containers:
+      - name: db-handler-service
+        image: jkoivist20/db-handler-service:latest
+        env:
+        - name: KAFKA_BROKER
+          value: "my-cluster-kafka-bootstrap.kafka.svc:9092"
+        - name: MONGO_SERVICE
+          value: "mongodb://mongodb-service:27017/"
