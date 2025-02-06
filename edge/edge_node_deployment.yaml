@@ -14,13 +14,13 @@ spec:
     spec:
       containers:
       
-      - name: nginx
-        image: nginx:latest
+      - name: video-server
+        image: jkoivist20/edge-video-server:latest
         ports:
         - containerPort: 80
         volumeMounts:
         - name: shared-storage
-          mountPath: /usr/share/nginx/html
+          mountPath: /app/videos
           
       - name: content-handler
         image: jkoivist20/edge-content-handler:latest
