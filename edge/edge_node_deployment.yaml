@@ -31,6 +31,15 @@ spec:
         - name: shared-storage
           mountPath: /app/videos
           
+      - name: frontend-builder
+        image: jkoivist20/edge-frontend-builder:latest
+        env:
+        - name: MONGO_SERVICE
+          value: "mongodb://mongodb-service:27017/"
+        volumeMounts:
+        - name: shared-storage
+          mountPath: /app/videos
+          
       volumes:
       - name: shared-storage
         emptyDir: {}

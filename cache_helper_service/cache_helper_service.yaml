@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache-helper-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cache-helper-service
+  template:
+    metadata:
+      labels:
+        app: cache-helper-service
+    spec:
+      containers:
+      - name: cache-helper-service
+        image: jkoivist20/prompt-distribution-service:latest
+        env:
+        - name: API_KEY
+          value: "your_api_key"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache-helper-service-service
+spec:
+  selector:
+    app: cache-helper-service
+  ports:
+    - protocol: TCP
+      port: 8124
+      targetPort: 80
+  type: LoadBalancer
