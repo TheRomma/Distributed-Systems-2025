@@ -1,9 +1,12 @@
 from pymongo import MongoClient
 import os
 
+#Connect to metadata database.
 client = MongoClient(os.getenv("MONGO_SERVICE", 'mongodb://mongodb-service:27017/'))
 db = client['metadata']
 collection = db['videos']
+
+#Functions for adding and removing entries.
 
 def add_entry(link: str, title: str):
     filename = os.path.basename(link)

@@ -1,6 +1,7 @@
 from confluent_kafka import Producer
 import os
 
+#Kafka producer init.
 conf = {'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092")}
 producer = Producer(conf)
 

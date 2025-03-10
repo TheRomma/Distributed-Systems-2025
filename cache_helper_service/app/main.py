@@ -4,10 +4,12 @@ import os
 from fastapi import FastAPI
 import requests
 
+#OpenAI client.
 client = OpenAI(
 	api_key = os.getenv("API_KEY", "my_key")
 )
 
+#Example inputs and outputs given as a guide for OpenAI to help translate natural language prompts into arguments for the content distribution service.
 examples = '''
 		"input" : "Could you cache the following video [given_link] with the following title [given_title]?"
 		"output" : {req=[{"link" : "given_link", "title" : "given_title"}]}
@@ -21,6 +23,7 @@ examples = '''
 		"output" : {req=[{"filename" : "given_filename"}, {"filename" : "another_filename"}]}
 '''
 
+#Fastapi init.
 app = FastAPI()
 
 @app.post("/prompt")
@@ -39,9 +42,11 @@ async def process_message(req: str):
 	result = json.loads(response.choices[0].message.content)
 	for thing in result['req']:
 		if "link" in thing and "title" in thing:
+			#Send message to /add.
 			print(thing)
 			resp = requests.post("http://content-distribution-service-service:8123/add", params=thing)
 		elif "filename" in thing:
+			#Send message to /remove.
 			print(thing)
 			resp = requests.post("http://content-distribution-service-service:8123/remove", params=thing)
 		else:

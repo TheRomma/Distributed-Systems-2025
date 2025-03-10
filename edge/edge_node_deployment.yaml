@@ -36,6 +36,8 @@ spec:
         env:
         - name: MONGO_SERVICE
           value: "mongodb://mongodb-service:27017/"
+        - name: SLEEP_INTERVAL
+          value: "10"
         volumeMounts:
         - name: shared-storage
           mountPath: /app/videos

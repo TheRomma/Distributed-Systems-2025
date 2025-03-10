@@ -2,6 +2,7 @@ from confluent_kafka import Consumer, KafkaError
 from file_manager import handle_add_message, handle_remove_message
 import os
 
+#Kafka consumer init. Uses a unique group id based on the pod name.
 conf = {
     'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092"),
     'group.id': os.getenv("HOSTNAME", "file-manager-group")+"_content_handler",

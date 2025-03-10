@@ -2,6 +2,7 @@ from confluent_kafka import Consumer, KafkaError
 from database import add_entry, remove_entry
 import os
 
+#Kafka consumer init.
 conf = {
     'bootstrap.servers': os.getenv("KAFKA_BROKER", "localhost:9092"),
     'group.id': "database-service-group",

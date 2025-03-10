@@ -4,6 +4,8 @@ import requests
 
 VIDEOS_FOLDER = 'videos'
 
+#Functions for handling content additions and removals.
+
 def handle_add_message(link: str, title: str):
     try:
         filename = os.path.basename(link)

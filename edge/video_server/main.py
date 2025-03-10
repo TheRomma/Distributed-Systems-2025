@@ -5,14 +5,12 @@ from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
 
+#Prometheus instrumentator.
 Instrumentator().instrument(app).expose(app)
 
 VIDEO_FOLDER = "/app/videos"
 
-#@app.on_event("startup")
-#async def startup():
-#    Instrumentator().instrument(app).expose(app)
-
+#Servers videos from the edge node.
 @app.get("/videos/{filename}")
 async def get_video(filename: str):
     file_path = os.path.join(VIDEO_FOLDER, filename)
@@ -20,7 +18,3 @@ async def get_video(filename: str):
         return FileResponse(file_path)
     else:
         raise HTTPException(status_code=404, detail="File not found")
-#
-#if __name__ == "__main__":
-#    import uvicorn
-#    uvicorn.run(app, host="0.0.0.0", port=80)
