@@ -1,5 +1,3 @@
-Build image:
-docker build -t video-server .
+# Edge Video Server
 
-Run container:
-docker run -d -p 8000:8000 -v ~/Videos:/app/videos -e VIDEO_FOLDER=/app/videos video-server
+Edge Video Server works as a simple web server for serving video content from the edge node.
